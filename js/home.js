@@ -1,4 +1,5 @@
-const url = 'https://espartano.azurewebsites.net/asistencia';
+//const url = 'https://espartano.azurewebsites.net/asistencia';
+const url = 'https://espartano.azurewebsites.net/matricula';
 let rellenar = document.querySelector("#rellenar"); 
 var nombreAlumno;
 var cantidadResultados;
@@ -8,7 +9,6 @@ var input = document.getElementById("nombreAlumno");
 if (localStorage.getItem("usuario") ==null) {
     window.location="/index.html";
     //window.location="/matricula_Euroamerican_College/";
-    
 }
 
 function cerrarSesion(){
@@ -27,6 +27,20 @@ input.addEventListener("keypress", function(event) {
   }
 });
 
+
+async function obtenerDatos2(){
+    await fetch(url)
+        .then(response => response.json())
+        .then(json=>{imprimir(json.data),
+            cantidadResultados=(json.mensaje);
+        });
+    if(cantidadResultados =="Se encontraron 0 resultado(s)."){
+        alert("No se encontraron resultados")
+    }
+}
+
+
+
 async function obtenerDatos(nombreAlumno){
     await fetch(url+"/"+nombreAlumno)
         .then(response => response.json())
@@ -39,66 +53,22 @@ async function obtenerDatos(nombreAlumno){
 }
 
 let imprimir = (array)=>{
-    var numFamilia;
 
     var informacionAlumno ="";
 
-    array.forEach((alumno,index) => {
+    array.forEach((alumno) => {
         
         // console.log(index);
-        if (index == 0) {
-            numFamilia= alumno.familia;
-            informacionAlumno+=
-            ` 
-            <div class="row margen">
-            <div class=" col-12">polos: ${alumno.cantidadPolo} </div>
-                <div class="form-check col-10">
-                    <input class="form-check-input valores" type="checkbox" value="${alumno.familia}"  id="${alumno.identificador}"
-                        ${alumno.haAsistido === true ? "checked disabled":" " }>
-                    <label class="form-check-label" for="${alumno.identificador}">
-                        ${alumno.apellidosNombres}
-                        </label>
-                </div>
-                <div class=" ${alumno.color} col-1"></div>
-            `   
-        }
-        else{
-            // console.log("Num familia: "+numFamilia);
-
-            if (numFamilia == alumno.familia) {
-                informacionAlumno+=
-                `
-                    <div class="form-check col-10">
-                        <input class="form-check-input valores" type="checkbox" value="${alumno.familia}" id="${alumno.identificador}"
-                            ${alumno.haAsistido === true ? "checked disabled":" " }>
-                        <label class="form-check-label" for="${alumno.identificador}">
-                        ${alumno.apellidosNombres}
-                        </label>
-                    </div>
-                    <div class=" ${alumno.color} col-1"></div>
-                   
-                ` 
-            }else{
-
-                informacionAlumno+= `</div>`
-                numFamilia = alumno.familia
-
-                informacionAlumno+=
-                `
-                <div class="row margen">
-                <div class="col-12">polos: ${alumno.cantidadPolo} </div>
-                    <div class="form-check col-10">
-                        <input class="form-check-input valores" type="checkbox" value="${alumno.familia}"  id="${alumno.identificador}"
-                            ${alumno.haAsistido === true ? "checked disabled":" " }>
-                        <label class="form-check-label" for="${alumno.identificador}">
-                            ${alumno.apellidosNombres}
-                            </label>
-                    </div>
-                    <div class=" ${alumno.color} col-1"></div>
-                   
-                `
-            }
-        }
+        informacionAlumno+=
+        ` 
+        <tr class=" ${alumno.color}">
+            <th scope="row">${alumno.codigoAlumno}</th>
+            <td>${alumno.nombreAlumno}</td>
+            <td>${alumno.tieneDeuda}</td>
+            <td>${alumno.realizoMatricula}</td>
+        </tr>
+             `   
+        
     });
     rellenar.innerHTML= informacionAlumno
 }
@@ -107,9 +77,14 @@ function BuscarAlumno(){
    
     nombreAlumno=document.getElementById("nombreAlumno").value;
 
-    if(nombreAlumno==""){ return alert("Colocar el Nombre o Apellido del alumno" )}
+    if(nombreAlumno=="")
+    {
+        obtenerDatos2();
+    }else{
+        obtenerDatos(nombreAlumno);
+    }
 
-    obtenerDatos(nombreAlumno);
+    
 }
 
 
