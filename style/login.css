@@ -1,0 +1,56 @@
+@font-face{
+    font-family: humanist;
+    src: url(../fonts/humanist-521-bold-condensed.otf) format('truetype');
+}
+body{
+    background-image: url(../image/fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: humanist !important;
+}
+.espaciado{
+    margin-top: 300px;
+    width: 800px !important;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 100px !important;
+    border-radius: 25px;
+    background-color: #d6d2c7dd;
+}
+.boton{
+    margin-top: 10px;
+    margin-left: 50%;
+}
+.btn{
+    background-color: #747E30 !important;
+    color: #fff !important;
+}
+
+.btn:hover{
+    background-color: #525a26 !important;
+    color: #f3f3f3 !important;
+}
+a{
+    text-decoration: none !important;
+    color: #fff !important;
+}
+
+@media (max-width: 575px) {
+    .espaciado{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 50%;
+        width: 300px !important;
+        background-color: #d6d2c7dd;
+        padding-left: 10px !important;
+        border-radius: 25px;
+    }
+    .espaciado .boton {
+        text-align: center;
+        margin-left: 0;
+    }
+  }
