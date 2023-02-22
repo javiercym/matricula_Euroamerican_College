@@ -6,7 +6,11 @@ var cantidadResultados;
 var input = document.getElementById("nombreAlumno");
 
 if (localStorage.getItem("usuario") ==null) {
-    window.location="/index.html";
+    //para local
+    //window.location="/index.html";
+    //para git pages
+    window.location="/matricula_Euroamerican_College";
+    
 }
 
 function cerrarSesion(){
