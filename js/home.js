@@ -6,6 +6,10 @@ var cantidadResultados;
 
 var input = document.getElementById("nombreAlumno");
 
+window.onload = () => {
+    obtenerDatos2();
+}
+
 if (localStorage.getItem("usuario") ==null) {
     window.location="/index.html";
     //window.location="/matricula_Euroamerican_College/";
