@@ -11,8 +11,8 @@ window.onload = () => {
 }
 
 if (localStorage.getItem("usuario") ==null) {
-    window.location="/index.html";
-    //window.location="/matricula_Euroamerican_College/";
+    //window.location="/index.html";
+    window.location="/matricula_Euroamerican_College/";
 }
 
 function cerrarSesion(){
